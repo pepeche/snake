@@ -1,24 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
+// import Snake from "./Snake.js";
+import Block from "./Block.js";
+
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>Coucou</p>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div id="game-zone">
+          <Block/>
+      </div>
+      <button>Start game</button>
     </div>
   );
 }
