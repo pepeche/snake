@@ -4,9 +4,18 @@
 }
 
 #gameBoardContainer {
-  position: absolute;
+  position: relative;
+  top: 5rem;
 }
 
 #gameBoard {
+  position: absolute;
+}
+
+.container{
+  position: relative;
+}
+
+.buttons{
   position: absolute;
 }

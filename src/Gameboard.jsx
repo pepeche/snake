@@ -12,7 +12,9 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import Snake from "./Snake.jsx";
-const CanvasWithCoordinates = ({ gridSizeGlobal }) => {
+import "./Gameboard.css"
+
+function CanvasWithCoordinates({ gridSizeGlobal }) {
   const canvasRef = useRef(null);
   const [coordinates, setCoordinates] = useState({ x: 0, y: 0 });
   const handleMouseMove = (e) => {
@@ -56,11 +58,51 @@ const CanvasWithCoordinates = ({ gridSizeGlobal }) => {
       ctx.stroke();
     }
   }, [coordinates, gridSizeGlobal]);
+
+
+
+  let [left, setLeft] = useState(0);
+  let [top, setTop] = useState(0);
+  let [right, setRight] = useState(0);
+  let [bottom, setBottom] = useState(0);
+
+  // useEffect(() => {
+  //   if (event.key === 'ArrowLeft') {
+  //     setLeft = left+20;
+  //     console.log('Touche "Left" pressée');
+  //     // Ajoutez ici le code que vous souhaitez exécuter pour la touche "Left"
+  // }}, [left]);
+
+  function handleKeyPress(event) {
+    if (event.key === 'ArrowLeft') {
+      setLeft((prevLeft) => prevLeft + 20)
+      console.log('Touche "Left" pressée');
+      // Ajoutez ici le code que vous souhaitez exécuter pour la touche "Left"
+    } else if (event.key === 'ArrowRight') {
+      // La touche "Right" a été pressée
+      console.log('Touche "Right" pressée');
+      // Ajoutez ici le code que vous souhaitez exécuter pour la touche "Right"
+    }
+  }
+  
+  useEffect(() => {
+    // Ajoutez le gestionnaire d'événements à la fenêtre
+    window.addEventListener('keydown', handleKeyPress);
+
+    // Nettoyez le gestionnaire d'événements lorsque le composant est démonté
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
+
   return (
-    <div>
+    <div className="container">
       <p>Survolez le canvas pour afficher les coordonnées des axes X et Y.</p>
       <p>Coordonnées X : {coordinates.x}</p>
       <p>Coordonnées Y : {coordinates.y}</p>
+      <div className="buttons">
+        <button>Right</button>
+      </div>
       <div id="gameBoardContainer">
         <canvas
           id="gameBoard"
@@ -68,10 +110,10 @@ const CanvasWithCoordinates = ({ gridSizeGlobal }) => {
           width={400} // Largeur du canvas
           height={400} // Hauteur du canvas
           onMouseMove={handleMouseMove}
-          style={{ border: "2px solid #FF0000" }}
         ></canvas>
-        <Snake />
+        <Snake left={left} top={top} />
       </div>
+      
     </div>
   );
 };

@@ -10,7 +10,7 @@ function App() {
       <div>
         <Gameboard gridSizeGlobal={gridSizeGlobal} />
       </div>
-      <button>Start game</button>
+      {/* <button>Start game</button> */}
     </div>
   );
 }
