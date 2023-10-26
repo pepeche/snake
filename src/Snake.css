@@ -1,6 +1,9 @@
-.Block{
+.snakeSprite {
+  top: 0;
+  left: 0;
+  position: relative;
   height: 20px;
   width: 20px;
-  background-color: red;
+  background-color: green;
   border: 1px solid black;
 }
