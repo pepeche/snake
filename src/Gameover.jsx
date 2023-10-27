@@ -1,11 +1,15 @@
 import "./Gameover.css";
 
-function Gameover({ setIsGameOver }) {
+function Gameover({setIsGameOver, score}) {
+
   return (
+
     <div id="gameOverGlobal">
-      <p>You lose !</p>
-      <button onClick={() => setIsGameOver(false)}>Launch new game</button>
+      <p>Fin de partie !</p>
+      <p>Score final : {score}</p>
+      <button  onClick={() => setIsGameOver(false)}>Nouvelle partie</button>
     </div>
+
   );
 }
 

@@ -8,6 +8,10 @@
   gap: 20px;
 }
 
+#gameOverGlobal p:first-child{
+  font-weight: bold;
+}
+
 p {
   color: black;
   font-size: 20px;
@@ -16,6 +20,15 @@ p {
 
 button {
   border-radius: 4px;
-  width: 100px;
-  height: 42px;
+  background-color: green;
+  border: 2px solid green;
+  color: white;
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  transition: all .3s ease-in-out;
+}
+
+button:hover{
+  background-color: #fff;
+  color: black;
 }

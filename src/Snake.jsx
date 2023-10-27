@@ -3,7 +3,7 @@ import "./Snake.css";
 
 function Snake({width, height, setIsGameOver, isGameOver}) {
   
-  const snakeHead = useRef(null);
+  const snake = useRef(null);
   
   let [HeadxPos, setHeadxPos] = useState(60);
   let [HeadyPos, setHeadyPos] = useState(60);
@@ -16,7 +16,7 @@ function Snake({width, height, setIsGameOver, isGameOver}) {
   
   useEffect(()=>{
     if (isGameOver === false) {
-    const canvas = snakeHead.current;
+    const canvas = snake.current;
     const ctx = canvas.getContext("2d");
 
     if(HeadxPos + 20 > width || HeadxPos < 0 || HeadyPos + 20 > height || HeadyPos < 0){
@@ -99,18 +99,18 @@ function Snake({width, height, setIsGameOver, isGameOver}) {
   }
 
   function endGame(ctx, HeadxPos, HeadyPos){
-    alert("Fin du game")
-      setDirection("right")
-      setHeadxPos(60);
-      setHeadyPos(60);
-      ctx.fillRect(HeadxPos, HeadyPos, 20, 20);
-      ctx.fillStyle = "green";
+    setIsGameOver(true)
+    setHeadxPos(60);
+    setHeadyPos(60);
+    ctx.fillRect(HeadxPos, HeadyPos, 20, 20);
+    ctx.fillStyle = "green";
+    setDirection("right")
   }
 
   return (
       <canvas
         className="snakeSprite"
-        ref={snakeHead}
+        ref={snake}
         width={width}
         height={height}>
       </canvas>

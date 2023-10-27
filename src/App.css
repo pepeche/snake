@@ -1,8 +1,12 @@
 .App {
-  height: 50vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 3rem;
+}
+
+.rules{
+  font-size: 14px;
 }
