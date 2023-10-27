@@ -39,16 +39,16 @@ function CanvasWithCoordinates({ gridSizeGlobal }) {
       ctx.beginPath();
       ctx.moveTo(0, y);
       ctx.lineTo(canvasWidth, y);
-      ctx.strokeStyle = "black"; // Couleur des axes
-      ctx.stroke();
+      // ctx.strokeStyle = "black"; // Couleur des axes
+      // ctx.stroke();
     }
     // Dessinez des lignes verticales
     for (let x = gridSize; x < canvasWidth; x += gridSize) {
       ctx.beginPath();
       ctx.moveTo(x, 0);
       ctx.lineTo(x, canvasHeight);
-      ctx.strokeStyle = "black";
-      ctx.stroke();
+      // ctx.strokeStyle = "black";
+      // ctx.stroke();
     }
   }, [coordinates, gridSizeGlobal]);
 
@@ -56,11 +56,7 @@ function CanvasWithCoordinates({ gridSizeGlobal }) {
   let height = 400;
 
   return (
-    <>
       <div className="container">
-        <p>Survolez le canvas pour afficher les coordonnées des axes X et Y.</p>
-        <p>Coordonnées X : {coordinates.x}</p>
-        <p>Coordonnées Y : {coordinates.y}</p>
         <div id="gameBoardContainer">
           <canvas
             id="gameBoard"
