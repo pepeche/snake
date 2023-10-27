@@ -68,3 +68,19 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+# Installation du SNAKE
+Cloner le projet sur Github
+Ouvrir le terminal dans le dossier
+Condition : Avoir npm d’installé 
+Installer les dépendances avec npm i
+
+## Lancement du jeu
+Lancer la commande npm start
+
+## Jouer au jeu
+Jouer au jeu avec les flèches gauche et droite pour vous déplacer
+
+## Fin de partie
+La partie prendra fin lorsque vous touchez un des quatres murs (représentés en noir)
