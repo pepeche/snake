@@ -3,80 +3,115 @@ import "./Snake.css";
 
 function Snake({width, height}) {
   
-  const canvasRef = useRef(null);
+  const snakeHead = useRef(null);
   
-  let [xPos, setxPos] = useState(60);
-  let [yPos, setyPos] = useState(60);
+  let [HeadxPos, setHeadxPos] = useState(60);
+  let [HeadyPos, setHeadyPos] = useState(60);
+  let [BodyxPos, setBodyxPos] = useState(HeadxPos-20);
+  let [BodyyPos, setBodyyPos] = useState(60);
+  let [TailxPos, setTailxPos] = useState(BodyxPos-20);
+  let [TailyPos, setTailyPos] = useState(60);
   let [direction, setDirection] = useState("right");
+  let array = [];
   
   useEffect(()=>{
-    const canvas = canvasRef.current;
+    const canvas = snakeHead.current;
     const ctx = canvas.getContext("2d");
-    if(xPos + 20 > width || xPos < 0 || yPos + 20 > height || yPos < 0){
-      alert(xPos)
-      setDirection("right")
-      setxPos(60);
-      setyPos(60);
-      ctx.fillRect(xPos,yPos,20,20);
-      ctx.fillStyle = "green";
+
+    if(HeadxPos + 20 > width || HeadxPos < 0 || HeadyPos + 20 > height || HeadyPos < 0){
+      endGame(ctx, HeadxPos, HeadyPos)
     } else {
-      ctx.fillRect(xPos,yPos,20,20);
-      ctx.fillStyle = "green";
+      continueGame(ctx, HeadxPos, HeadyPos, BodyxPos, BodyyPos, TailxPos, TailyPos)
     }
 
     const interval = setInterval(() => {
       if(direction === "right"){
-        console.log(direction, xPos, yPos)
-        setxPos((prevxPos) => prevxPos + 20)
-        ctx.clearRect(xPos, yPos, width, height)
+        setHeadxPos((prevxPos) => prevxPos + 20)
+        setBodyyPos(array[0][1])
+        setBodyxPos(array[0][0])
+        setTailyPos(array[1][1])
+        setTailxPos(array[1][0])
+        ctx.clearRect(HeadxPos, HeadyPos, width, height)
+        ctx.clearRect(BodyxPos, BodyyPos, width, height)
+        ctx.clearRect(TailxPos, TailyPos, width, height)
+
       }
       else if (direction === "bottom"){
-        console.log(direction, xPos, yPos)
-        setyPos((prevyPos) => prevyPos + 20);
-        ctx.clearRect(xPos, yPos, width, height)
+        setHeadyPos((prevyPos) => prevyPos + 20);
+        setBodyyPos(array[0][1])
+        setBodyxPos(array[0][0])
+        setTailyPos(array[1][1])
+        setTailxPos(array[1][0])
+        ctx.clearRect(HeadxPos, HeadyPos, width, height)
+        ctx.clearRect(BodyxPos, BodyyPos, width, height)
+        ctx.clearRect(TailxPos, TailyPos, width, height)
       }
       else if (direction === "left") {
-        console.log(direction, xPos, yPos)
-        setxPos((prevxPos) => prevxPos - 20)
-        ctx.clearRect(xPos, yPos, width, height)
+        setHeadxPos((prevxPos) => prevxPos - 20)
+        setBodyyPos(array[0][1])
+        setBodyxPos(array[0][0])
+        setTailyPos(array[1][1])
+        setTailxPos(array[1][0])
+        ctx.clearRect(HeadxPos, HeadyPos, width, height)
+        ctx.clearRect(BodyxPos, BodyyPos, width, height)
+        ctx.clearRect(TailxPos, TailyPos, width, height)
       } 
       else{
-        console.log(direction, xPos, yPos)
-        setyPos((prevyPos) => prevyPos - 20);
-        ctx.clearRect(xPos, yPos, width, height)
+        setHeadyPos((prevyPos) => prevyPos - 20);
+        setBodyyPos(array[0][1])
+        setBodyxPos(array[0][0])
+        setTailyPos(array[1][1])
+        setTailxPos(array[1][0])
+        ctx.clearRect(HeadxPos, HeadyPos, width, height)
+        ctx.clearRect(BodyxPos, BodyyPos, width, height)
+        ctx.clearRect(TailxPos, TailyPos, width, height)
+
       }
-    }, 500);
+    }, 100);
     window.addEventListener('keydown', moveSnake);
     return () => {
       window.removeEventListener('keydown', moveSnake);
       clearInterval(interval)
     };
-  }, [xPos, yPos, direction])
+  }, [HeadxPos, HeadyPos, direction])
 
   function moveSnake(event) {
-    console.log(direction)
     if (event.key === 'ArrowRight') {
       direction === "right" ?  setDirection("bottom") : 
       direction === "bottom" ?  setDirection("left") : 
       direction === "left" ?  setDirection("top") : setDirection("right");
-      console.log("arrowright", direction)
     } 
     else if (event.key === 'ArrowLeft') {
       direction === "right" ?  setDirection("top") : 
       direction === "top" ?  setDirection("left") : 
       direction === "left" ?  setDirection("bottom") : setDirection("right");
-      console.log("arrowleft", direction)
     }
   }
 
+  function continueGame(ctx, HeadxPos, HeadyPos, BodyxPos, BodyyPos, TailxPos, TailyPos){
+    array.push([HeadxPos, HeadyPos], [BodyxPos, BodyyPos], [TailxPos, TailyPos]);
+    ctx.fillRect(HeadxPos, HeadyPos, 20, 20);
+    ctx.fillRect(BodyxPos, BodyyPos, 20, 20);
+    ctx.fillRect(TailxPos, TailyPos, 20, 20);
+    ctx.fillStyle = "lightgreen";
+  }
+
+  function endGame(ctx, HeadxPos, HeadyPos){
+    alert("Fin du game")
+      setDirection("right")
+      setHeadxPos(60);
+      setHeadyPos(60);
+      ctx.fillRect(HeadxPos, HeadyPos, 20, 20);
+      ctx.fillStyle = "green";
+  }
+
   return (
-    <canvas
-      className="snakeSprite"
-      ref={canvasRef}
-      width={width}
-      height={height}
-    >
-    </canvas>
+      <canvas
+        className="snakeSprite"
+        ref={snakeHead}
+        width={width}
+        height={height}>
+      </canvas>
       );
 }
 
