@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./Snake.css";
 
-function Snake({width, height}) {
+function Snake({width, height, setIsGameOver, isGameOver}) {
   
   const snakeHead = useRef(null);
   
@@ -15,6 +15,7 @@ function Snake({width, height}) {
   let array = [];
   
   useEffect(()=>{
+    if (isGameOver === false) {
     const canvas = snakeHead.current;
     const ctx = canvas.getContext("2d");
 
@@ -73,7 +74,8 @@ function Snake({width, height}) {
       window.removeEventListener('keydown', moveSnake);
       clearInterval(interval)
     };
-  }, [HeadxPos, HeadyPos, direction])
+    }
+  }, [isGameOver, HeadxPos, HeadyPos, direction])
 
   function moveSnake(event) {
     if (event.key === 'ArrowRight') {
