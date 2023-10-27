@@ -1,23 +1,21 @@
 import React, { useRef, useEffect, useState } from "react";
 import Snake from "./Snake.jsx";
-import "./Gameboard.css"
+import Gameover from "./Gameover.jsx";
+import "./Gameboard.css";
 
 function CanvasWithCoordinates({ gridSizeGlobal }) {
-
-  
   const canvasRef = useRef(null);
   const [coordinates, setCoordinates] = useState({ x: 0, y: 0 });
-  
-  
+  const [isGameOver, setIsGameOver] = useState(false);
+
   function handleKeyPress(e) {
-    console.log("coucou")
+    console.log("coucou");
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     setCoordinates({ x, y });
-  };
-
+  }
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -57,28 +55,38 @@ function CanvasWithCoordinates({ gridSizeGlobal }) {
   let width = 400;
   let height = 400;
 
-  
-
   return (
-    <div className="container">
-      <p>Survolez le canvas pour afficher les coordonnées des axes X et Y.</p>
-      <p>Coordonnées X : {coordinates.x}</p>
-      <p>Coordonnées Y : {coordinates.y}</p>
-      <div id="gameBoardContainer">
-        <canvas
-          id="gameBoard"
-          ref={canvasRef}
-          width={width} // Largeur du canvas
-          height={height} // Hauteur du canvas
-          
-          style={{
-            outline : "5px solid black"
-          }}
-        ></canvas>
-        <Snake width={width} height={height}/>
+    <>
+      <div className="container">
+        <p>Survolez le canvas pour afficher les coordonnées des axes X et Y.</p>
+        <p>Coordonnées X : {coordinates.x}</p>
+        <p>Coordonnées Y : {coordinates.y}</p>
+        <div id="gameBoardContainer">
+          <canvas
+            id="gameBoard"
+            ref={canvasRef}
+            width={width} // Largeur du canvas
+            height={height} // Hauteur du canvas
+            style={{
+              outline: "5px solid black",
+            }}
+          ></canvas>
+          <Snake
+            width={width}
+            height={height}
+            setIsGameOver={setIsGameOver}
+            isGameOver={isGameOver}
+          />
+        </div>
       </div>
-      
-    </div>
+      {isGameOver && (
+        <div className="gameOverModal">
+          <div className="gameOverContent">
+            <Gameover setIsGameOver={setIsGameOver} />
+          </div>
+        </div>
+      )}
+    </>
   );
-};
+}
 export default CanvasWithCoordinates;
